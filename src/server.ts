@@ -43,9 +43,9 @@ async function main() {
 //
 main();
 
-process.on('SIGTERM', () => {
-  logger.info('SIGTERM is received');
-  if (server) {
-    server.close();
-  }
-});
+if (process.env.NODE_ENV === 'production') {
+  process.on('SIGTERM', () => {
+    logger.info('SIGTERM is received');
+    if (server) server.close();
+  });
+}
